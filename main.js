@@ -39,18 +39,28 @@ webnative.initialize(fissionInit).then(async state => {
       }
 
       if (await fs.exists('public/examples/shared.txt')) {
+
+        /**
+         * Set the public link if it has not been set.
+         */
         if (!publicLink) {
           publicLink = `https://${state.username}.files.fission.name/p/examples/shared.txt`;
           setPublicLink(publicLink);
         }
 
+        /**
+        * Set the archival link for the current version of file.
+        */
         const rootCid = await fs.root.put();
         currentVersionLink = `https://ipfs.runfission.com/ipfs/${rootCid}/p/examples/shared.txt`
         setCurrentLink(currentVersionLink);
 
+        /**
+         * Traverse the file history and generate links for all older versions of the file.
+         * This will not include the current version of the file.
+        */
         const file = await fs.get('public/examples/shared.txt');
         const history = await file.history.list();
-
         history.forEach(async versionMetadata => {
           const version = await file.history.back(versionMetadata.delta);
           const archivalLink = `https://ipfs.runfission.com/ipfs/${version.cid}/userland`
@@ -66,15 +76,24 @@ webnative.initialize(fissionInit).then(async state => {
           await fs.write('public/examples/shared.txt', content);
           await fs.publish();
 
+          /**
+           * Set the public link if it has not been set.
+           */
           if (!publicLink) {
             publicLink = `https://${state.username}.files.fission.name/p/examples/shared.txt`;
             setPublicLink(publicLink);
           }
 
+          /**
+           * Set the archival link for the current version of file.
+           */
           const rootCid = await fs.root.put();
           currentVersionLink = `https://ipfs.runfission.com/ipfs/${rootCid}/p/examples/shared.txt`
           setCurrentLink(currentVersionLink);
 
+          /**
+           * Add the last version of the app to the older versions.
+           */
           const file = await fs.get('public/examples/shared.txt');
           const history = await file.history.list();
           if (history.length > 0) {
