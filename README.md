@@ -8,6 +8,10 @@ The repository demonstrates three techniques for generating links to public file
 
 Please see the [Linking to Public Files](https://talk.fission.codes/t/linking-to-public-files/1716) post and the [Webntaive SDK guide](https://guide.fission.codes/developers/webnative) for more details.
 
-# Run
+## Try it
+
+This demo is live at: https://benevolent-senior-pink-yeti.fission.app/
+
+## Run
 
 Run `http-server` or another simple web server in the root of this project. No build or package installation needed.
