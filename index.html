@@ -1,0 +1,83 @@
+<!doctype !html>
+
+<html>
+
+<head>
+  <script src="https://unpkg.com/webnative@0.21.4/index.umd.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+  <script defer src="main.js"></script>
+</head>
+
+<body>
+  <main>
+    <article>
+      <h1>Sharing public files example</h1>
+    </article>
+
+    <article>
+      <strong>Auth scenario:</strong>
+      <span id="scenario"></span>
+    </article>
+
+    <article>
+      <button id="signIn" style="display: none">Sign in</button>
+    </article>
+
+    <div id="app" style="display: none">
+      <article>
+        <p>Enter some text:</p>
+        <form>
+          <input id="textInput" type="text">
+          <input id="saveText" type="submit" value="Save"></input>
+        </form>
+      </article>
+
+      <article>
+        <h3>Public link</h3>
+        <p>Public links always stay the same, even when the content is updated.
+        </p>
+        <p>
+          Public links look like:
+          <code>https://${username}.files.fission.name/p/${path_to_file}</code>
+        </p>
+
+        <p>
+          <a id="publicLink" target="_blank"></a>
+        </p>
+      </article>
+
+      <article>
+        <h3>Archival Link</h3>
+        <p>
+          When you update a file, the root CID for the user's filesystem gets updated. You can use the root CID and the
+          file path to get a permanent link to the content.
+        </p>
+        <p>
+          These links look like
+          <code>https://ipfs.runfission.com/ipfs/${rootCid}/p/${path_to_file}</code>
+        </p>
+        <p>
+          <a id="currentVersionLink" target="_blank"></a>
+        </p>
+      </article>
+
+      <article>
+        <h3>Older Versions</h3>
+        <p>
+          Webnative keeps
+          <a href="https://guide.fission.codes/developers/webnative#versioning" target="_blank">
+            Versions
+          </a>
+          of each file. You can link to older versions of the file by CID.
+        </p>
+        <p>
+          These links look like
+          <code>https://ipfs.runfission.com/ipfs/${version.cid}/userland</code>
+        </p>
+        <div id="versions"></div>
+      </article>
+    </div>
+  </main>
+</body>
+
+</html>
